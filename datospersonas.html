@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Información de la persona</title>
+</head>
+
+<body>
+    <div class="col-lg-5 mx-auto p-3 py-md-5">
+        <main>
+            <h2>Registra tus datos</h2>
+            
+            <form action="procesardatos.php" class="" method="GET"> 
+                <div class="row g-2">
+                    <div class="col-auto">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" name="nombre" id="nombre" class="form-control">
+                    </div>
+                    <div class="col-auto">
+                        <label for="apellido" class="form-label">Apellido</label>
+                        <input type="text" name="apellido" id="apellido" class="form-control">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-auto">
+                        <label for="nac" class="form-label">Fecha de nacimiento</label>
+                        <input type="date" name="nac" id="nac" class="form-control">
+                    </div>
+                </div>
+                <hr>
+                <div class="row g-1">
+                    <label for="">Genero</label>
+                    <div class="col-auto form-check form-check-inline">
+                        <input type="radio" id="generoM" class="form-check-input" name="genero" value="m">
+                        <label for="generoM" class="form-check-label">Masculino</label>
+                    </div>
+                    <div class="col-auto form-check form-check-inline">
+                        <input type="radio" id="generoF" class="form-check-input" name="genero" value="f">
+                        <label for="generoF" class="form-check-label">Femenino</label>
+                    </div>
+                    <div class="col-auto form-check form-check-inline">
+                        <input type="radio" id="generoN" class="form-check-input" name="genero" value="n">
+                        <label for="generoN" class="form-check-label">No binario</label>
+                    </div>
+                    <div class="col-auto form-check form-check-inline">
+                        <input type="radio" id="generoP" class="form-check-input" name="genero" value="p">
+                        <label for="generoP" class="form-check-label">Prefiero no decir</label>
+                    </div>
+                </div>
+                <hr>
+                <div class="row g-2">
+                    <div class="col-auto">
+                        <label for="">Tipo de teléfono</label>
+                        <div class="form-check">
+                            <input type="radio" id="tipoM" class="form-check-input" name="tipoTel" value="M">
+                            <label for="tipoM" class="form-check-label">Movil</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" id="tipoF" class="form-check-input" name="tipoTel" value="F">
+                            <label for="tipoF" class="form-check-label">Fijo</label>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <label for="tel" class="form-label">Teléfono</label>
+                        <input type="tel" name="tel" id="tel" class="form-control">
+                        <div id="telHelp" class="form-text d-none text-danger"></div>
+                    </div>
+                </div>
+                <div class="row g-2 d-none mt-2" id="dni-field">
+                    <div class="col-auto">
+                        <label for="">Tipo de documento</label>
+                        <div class="form-check">
+                            <input type="radio" id="dniV" class="form-check-input" name="tipoDni" value="V">
+                            <label for="dniV" class="form-check-label">Venezolano</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" id="dniE" class="form-check-input" name="tipoDni" value="E">
+                            <label for="dniE" class="form-check-label">Extranjero</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" id="dniP" class="form-check-input" name="tipoDni" value="P">
+                            <label for="dniP" class="form-check-label">Pasaporte</label>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <label for="dni" class="form-label" id="dniLabel">Cedula</label>
+                        <input type="text" id="dni" name="ci" class="form-control">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success">Enviar</button>
+            </form>
+        </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#nac').change(function () {
+                let nac = $(this).val()
+                nac = moment(nac,'YYYY-MM-DD')
+                let age = moment().diff(nac, 'years')
+                if( age >= 18){
+                    $('#dni-field').removeClass('d-none')
+                }else{
+                    if(!$('#dni-field').hasClass('d-none'))
+                    $('#dni-field').addClass('d-none')
+                }
+            })
+
+            $('input[name="tipoDni"]').change(function () {
+                let val = $(this).val()
+                if(val == 'V' || val == 'E'){
+                    $('#dniLabel').empty().text('Cédula')
+                }else{
+                    $('#dniLabel').empty().text('Pasaporte')
+                }
+            })
+
+            $('#tel').keyup(function () {
+                const movilRegex = /04[16|26|14|24|12]{2}/g
+                const fijoRegex = /02/g
+                const errors = [
+                    'Seleccione el tipo de teléfono',
+                    'No tiene formato de movil',
+                    'No tiene formato de fijo',
+                    'Faltan numero'
+                ]
+                let type = $('input[name="tipoTel"]:checked').val()
+                if(type != '' || type != null){
+                    let val = $(this).val()
+                    if(val != '' ){
+                        if(type == 'M'){
+                            if(movilRegex.test(val)){
+                                $('#telHelp').empty().addClass('d-none')
+                            }else{
+                                $('#telHelp').empty().text(errors[1]).removeClass('d-none')
+                            }
+                        }
+
+                        if(type == 'F'){
+                            if(fijoRegex.test(val)){
+                                $('#telHelp').empty().addClass('d-none')
+                            }else{
+                                $('#telHelp').empty().text(errors[2]).removeClass('d-none')
+                            }
+                        }
+
+                        console.log(val.length);
+
+                        if(val.length > 4 && (val.length < 11 || val.length > 11)) {
+                            $('#telHelp').empty().text(errors[3]).removeClass('d-none')
+                        }
+                    }
+                }else{
+                    $('#telHelp').empty().text(errors[0]).removeClass('d-none')
+                }
+            })
+        })
+    </script>
+</body>
+
+</html> 
