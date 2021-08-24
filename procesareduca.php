@@ -8,53 +8,49 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 
-    <title>Procesar</title>
+    <title>Procesar Educacion</title>
 </head>
 
 <body>
     <div class="col-lg-5 mx-auto p-3 py-md-5">
         <main>
-            <h2>Datos de experiencia</h2>
-
+            <h2>Datos de educacion</h2>
             <?php 
-            
-                $empresa= $_GET['emp'];
-                $inicio= $_GET['inic'];
-                $fin= $_GET['fin'];
-                $cargo= $_GET['carg'];
-                $descripcion= $_GET['desc'];
-                 ?>
-        <h4>Nombre de la empresa</h4> <?=$empresa?>
+
+                $instituto= $_GET['inst'];
+                $ingreso= $_GET['ingr'];
+                $egreso= $_GET['egre'];
+                $nivel= $_GET['niv'];
+                 
+            ?>
+        <h4>Nombre del Instituto</h4> <?=$instituto?>
         <hr class="col-sm-5">
-        <h4>Fecha de inicio</h4> <?=$inicio?>
+        <h4>Fecha de ingreso</h4> <?=$ingreso?>
         <hr class="col-sm-5">
-        <h4>Fecha de salida</h4> <?=$fin?>
+        <h4>Fecha de egreso</h4> <?=$egreso?>
         <hr class="col-sm-5">
-        <h4>Cargo</h4> <?=$cargo?>
-        <hr class="col-sm-5">
-        <h4>Descripcion</h4> <?=$descripcion?>
-        <hr class="col-sm-5">
+        <h4>Carrera</h4> <?=$nivel?>
+        <hr class="col-sm-5"> 
             <?php
                 
 
-                $file = file_get_contents('experiencia.json');
+                $file = file_get_contents('educacion.json');
                 $file = json_decode($file);
 
-                $empresas = [
-                    'emp' =>$_GET['emp'],
-                    'inic' =>$_GET['inic'],
-                    'fin' =>$_GET['fin'],
-                    'carg' =>$_GET['carg'],
-                    'desc' =>$_GET['desc'],
+                $institutos = [
+                    'inst' =>$_GET['inst'],
+                    'ingr' =>$_GET['ingr'],
+                    'egre' =>$_GET['egre'],
+                    'niv' =>$_GET['niv'],
                 ];
-                $file[] = $empresas;
+                $file[] = $institutos;
 
                 $file = json_encode($file);
-                file_put_contents('experiencia.json',$file);
+                file_put_contents('educacion.json',$file);
             ?>
             <br>
-            <a class="btn btn-primary" href="Experienciadetrabajo.html" >Volver</a>
-            <a class="btn btn-success" href="experiencialista.php">Ver listas de experiencia</a>
+            <a class="btn btn-primary" href="educacion.html" >Volver</a>
+            <a class="btn btn-success" href="educacionlista.php">Ver listas de educación</a>
            
             
         </main>
