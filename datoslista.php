@@ -77,7 +77,7 @@ function edad($nac){
                             <td>  <a href='.$filas[].> <button type='button class='btn btn-success'>Modificar</button> </a> </td>
                             <td> <a href='borrarregistro.php?no=.$filas[];><button type='button class='btn btn-danger'>Eliminar</button></a>
                          </td>
-                         <td>  <a href="Curriculum.php" class="btn btn-success">Curriculum</a></td>
+                         <td>  <a href="datosjuntos.php" class="btn btn-success">Curriculum</a></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
